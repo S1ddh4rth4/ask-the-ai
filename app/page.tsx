@@ -1,65 +1,112 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+
+type Message = {
+  role: "user" | "ai";
+  text: string;
+};
 
 export default function Home() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const askTheAI = async () => {
+    if (!input.trim() || isLoading) return;
+
+    setIsLoading(true);
+    const userMessage: Message = { role: "user", text: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput(""); 
+
+    try {
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: input }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to communicate with the Dark Side.");
+      }
+
+      const data = await response.json();
+
+      const aiResponse: Message = { 
+        role: "ai", 
+        text: data.response 
+      };
+      
+      setMessages((prev) => [...prev, aiResponse]);
+    } catch {
+      const errorResponse: Message = {
+        role: "ai",
+        text: "The connection to the Holocron was severed. Control your anger and try again.",
+      };
+      setMessages((prev) => [...prev, errorResponse]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="flex flex-col min-h-screen bg-black text-red-500 font-mono tracking-wide">
+      {/* Sith Holocron Header */}
+      <div className="w-full text-center py-4 bg-gradient-to-b from-red-950/30 to-transparent border-b border-red-950">
+        <h1 className="text-sm font-black tracking-[0.3em] text-red-600 animate-pulse">
+          SITH HOLOCRON CORRUPTION INTERFACE
+        </h1>
+      </div>
+
+      {/* Conversation History Area */}
+      <div className="flex-1 w-full max-w-3xl mx-auto p-6 overflow-y-auto">
+        <div className="space-y-6">
+          {messages.map((msg, index) => (
+            <div 
+              key={index} 
+              className={`p-5 rounded-r-md bg-zinc-950/40 backdrop-blur-sm border-l-4 transition-all duration-500
+                ${msg.role === "user" 
+                  ? "border-red-500 shadow-[[-10px_0_15px_-3px_rgba(239,68,68,0.5)],_inset_0_0_10px_rgba(239,68,68,0.05)] text-red-400/90" 
+                  : "border-red-600 shadow-[[-12px_0_25px_-3px_rgba(220,38,38,0.8)],_inset_0_0_15px_rgba(220,38,38,0.1)] text-red-500 font-medium font-sans"
+                }`}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              <div className="text-xs font-black tracking-widest uppercase mb-2 opacity-60">
+                {msg.role === "user" ? "▲ Apprentice Command" : "▼ Sith Lord Edict"}
+              </div>
+              <div className="leading-relaxed whitespace-pre-wrap">
+                {msg.text}
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </div>
+
+      {/* Input Area */}
+      <div className="w-full border-t border-red-950 bg-black p-6">
+        <div className="max-w-3xl mx-auto flex flex-col gap-4">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={isLoading}
+            className="w-full h-32 p-4 rounded-lg bg-black border border-red-900 focus:outline-none focus:ring-2 focus:ring-red-600 text-red-400 placeholder-red-950 resize-none shadow-[0_0_15px_rgba(220,38,38,0.05)] disabled:opacity-50"
+            placeholder={isLoading ? "The Force is shifting... Wait." : "Submit to your anger... Type your command..."}
+          />
+          <button 
+            onClick={askTheAI}
+            disabled={isLoading}
+            className={`w-full py-3 px-6 text-black font-black rounded-lg transition-all duration-300 tracking-[0.2em] 
+              ${isLoading 
+                ? "bg-red-950 text-red-700 cursor-not-allowed opacity-40 shadow-none" 
+                : "bg-red-700 hover:bg-red-600 shadow-[0_0_20px_rgba(185,28,28,0.4)] hover:shadow-[0_0_35px_rgba(220,38,38,0.7)]"
+              }`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            {isLoading ? "COMMUNICATION IN PROGRESS..." : "CHANNEL THE FORCE"}
+          </button>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
