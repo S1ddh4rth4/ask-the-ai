@@ -1,4 +1,4 @@
-# Universal AI Architect
+# Universal AI Architect: Sith Holocron Interface
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -6,7 +6,7 @@
 
 A flexible, general-purpose AI agent generator and assistant interface. This iteration features a customized, immersive conceptual skin titled "Sith Holocron Corruption Interface", demonstrating how the underlying architecture can dynamically orchestrate and scale intelligent workflows under highly specialized thematic contexts.
 
-The core system handles asynchronous streaming or request state management, mapping custom user prompt rules (e.g., Apprentice inputs) to strictly modeled systemic responses (e.g., Holocron/Sith Lord outputs) through an optimized local backend layout.
+The core system handles asynchronous state management, mapping custom user prompt rules (Apprentice inputs) to strictly modeled systemic responses (Sith Lord outputs) through an optimized local backend layout.
 
 ---
 
