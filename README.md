@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Universal AI Architect
+
+A flexible, general-purpose AI agent generator and assistant interface built with Next.js and TypeScript. This project is designed to architect, orchestrate, and manage intelligent agents tailored for any topic, scenario, or custom workflow that arises.
+
+## Tech Stack
+
+* **Framework:** Next.js (App Router)
+* **Language:** TypeScript
+* **Styling:** Tailwind CSS
+* **Linting/Formatting:** ESLint
+
+## Architecture & Documentation
+
+The root directory contains strategic documentation files to align development and agent behaviors:
+* `app/`: Core application logic, interface components, and API route handlers (including OpenAI integration).
+* `AGENTS.md`: Defines the core architecture, behavioral guidelines, and custom capabilities for the generated general-purpose agents.
+* `CLAUDE.md`: System prompts and specialized operational context tailored for LLM collaboration and development constraints.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+Make sure you have **Node.js** (v18.x or higher) and npm installed on your environment.
+
+### Installation
+
+1. **Clone the repository:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   git clone [https://github.com/S1ddh4rth4/ask-the-ai.git](https://github.com/S1ddh4rth4/ask-the-ai.git)
+   cd ask-the-ai
+Install dependencies:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Bash
+   npm install
+Environment Variables Setup:
+Create a .env.local file in the root directory to store your sensitive credentials safely:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Bash
+   # OpenAI API Configuration
+   OPENAI_API_KEY=your_api_key_here
+(Note: The .env.local file is automatically ignored by Git to secure your development keys).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the development server:
 
-## Learn More
+Bash
+   npm run dev
+Open http://localhost:3000 in your browser to interact with the local instance.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🔒 License
+This project is maintained locally for private development and AI agent orchestration prototyping.
