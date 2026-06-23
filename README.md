@@ -1,50 +1,36 @@
-# Universal AI Architect
+# Universal AI Architect 🚀
 
-A flexible, general-purpose AI agent generator and assistant interface built with Next.js and TypeScript. This project is designed to architect, orchestrate, and manage intelligent agents tailored for any topic, scenario, or custom workflow that arises.
+<p align="left">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+</p>
 
-## Tech Stack
+A flexible, general-purpose AI agent generator and assistant interface. This project is architected to dynamically orchestrate, manage, and scale intelligent workflows tailored for any topic or scenario that arises.
 
-* **Framework:** Next.js (App Router)
-* **Language:** TypeScript
-* **Styling:** Tailwind CSS
-* **Linting/Formatting:** ESLint
+---
 
-## Architecture & Documentation
+## Architecture & Documentation Layout
 
-The root directory contains strategic documentation files to align development and agent behaviors:
-* `app/`: Core application logic, interface components, and API route handlers (including OpenAI integration).
-* `AGENTS.md`: Defines the core architecture, behavioral guidelines, and custom capabilities for the generated general-purpose agents.
-* `CLAUDE.md`: System prompts and specialized operational context tailored for LLM collaboration and development constraints.
+La estructura clave del proyecto está diseñada para separar la lógica de la interfaz del comportamiento de la IA:
+
+* **`app/`** — Core application logic, client interfaces, and backend API route handlers.
+* **`AGENTS.md`** — Core behavioral guidelines, agent prompt structures, and multi-purpose capabilities.
+* **`CLAUDE.md`** — Advanced development context and strict operational rules for LLM synergy.
+
+> [!TIP]
+> Puedes personalizar las respuestas globales o el comportamiento del asistente modificando los archivos de documentación estratégica en la raíz antes de inicializar el entorno.
+
+---
 
 ## Getting Started
 
 ### Prerequisites
+Asegúrate de contar con **Node.js** (v18.x o superior) instalado en tu entorno local de desarrollo.
 
-Make sure you have **Node.js** (v18.x or higher) and npm installed on your environment.
+### Installation & Setup
 
-### Installation
-
-1. **Clone the repository:**
+1. **Clonar el repositorio:**
 ```bash
    git clone [https://github.com/S1ddh4rth4/ask-the-ai.git](https://github.com/S1ddh4rth4/ask-the-ai.git)
    cd ask-the-ai
-Install dependencies:
-
-Bash
-   npm install
-Environment Variables Setup:
-Create a .env.local file in the root directory to store your sensitive credentials safely:
-
-Bash
-   # OpenAI API Configuration
-   OPENAI_API_KEY=your_api_key_here
-(Note: The .env.local file is automatically ignored by Git to secure your development keys).
-
-Run the development server:
-
-Bash
-   npm run dev
-Open http://localhost:3000 in your browser to interact with the local instance.
-
-🔒 License
-This project is maintained locally for private development and AI agent orchestration prototyping.
